@@ -17,6 +17,13 @@ def about_page(username):
     return f"<h1>This is about page of {username}</h1>"
 
 @app.route("/")
+def my_index():
+    return render_template('index.html',token="Hello Ganga")
+
+
+
+
+
 @app.route("/home")
 def home_page():
     return render_template('home.html')
