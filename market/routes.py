@@ -1,10 +1,24 @@
 from market import app
 from flask import  render_template,redirect,url_for,flash,get_flashed_messages,request
 from market.models import Item,User
-from market.forms import RegisterForm,LoginForm,PurchaseItemForm,SellItemForm
+from market.forms import RegisterForm, LoginForm, PurchaseItemForm, SellItemForm, mlForm
 from market import db
 from flask_login import login_user,logout_user,login_required,current_user
+import numpy as np
+from flask import Flask, request, jsonify
+import pickle
 
+ml_model = pickle.load(open('market/model.pkl','rb'))
+@app.route('/api',methods=['POST','GET'])
+def predict():
+    form = mlForm()
+    if form.validate_on_submit():
+        years=form.years.data
+        prediction = ml_model.predict([[np.array(years)]])
+        output = prediction[0]
+        print(output)
+        return render_template('mlapi.html', form=form, answer=output)
+    return render_template('mlapi.html',form=form,answer=None)
 
 #decorator, which url in website
 @app.route("/test")

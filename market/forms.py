@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField,PasswordField,SubmitField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField, FloatField
 from wtforms.validators import Length,EqualTo,Email,DataRequired,ValidationError
 from market.models import User
 
@@ -32,3 +32,7 @@ class PurchaseItemForm(FlaskForm):
 
 class SellItemForm(FlaskForm):
     submit = SubmitField(label='Sell Item!')
+
+class mlForm(FlaskForm):
+    years=FloatField(label='Years of experience: ',validators=[DataRequired()])
+    submit = SubmitField(label='Predict salary')
