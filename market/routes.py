@@ -32,7 +32,7 @@ def about_page(username):
 
 @app.route("/")
 def my_index():
-    return render_template('index.html',token="Hello Ganga")
+    return render_template('home.html',token="Hello Ganga")
 
 
 
